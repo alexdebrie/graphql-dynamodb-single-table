@@ -1,0 +1,9 @@
+#if ( $ctx.error )
+  #if ( $ctx.error.type.equals("DynamoDB:ConditionalCheckFailedException") )
+    $util.error("Error creating Post.", "PostAlreadyExistsError")
+  #else
+    $util.error($ctx.error.message, $ctx.error.type)
+  #end
+#end
+
+$util.toJson($ctx.result)

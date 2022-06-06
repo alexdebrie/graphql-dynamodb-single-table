@@ -1,0 +1,18 @@
+#set($id = $util.autoUlid())
+
+{
+    "version" : "2018-05-29",
+    "operation" : "PutItem",
+    "key" : {
+        "PK": $util.dynamodb.toDynamoDBJson("POST#$ctx.args.input.postId"),
+        "SK": $util.dynamodb.toDynamoDBJson("COMMENT#${id}"),
+    },
+    "attributeValues" : {
+        "_TYPE": $util.dynamodb.toDynamoDBJson("COMMENT"),
+    	"id": $util.dynamodb.toDynamoDBJson($id),
+        "postId": $util.dynamodb.toDynamoDBJson($ctx.args.input.postId),
+        "publishDate": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrEmpty($ctx.args.input.publishDate, $util.time.nowISO8601())),
+        "username": $util.dynamodb.toDynamoDBJson($ctx.args.input.username),
+        "content": $util.dynamodb.toDynamoDBJson($ctx.args.input.content),
+    }
+}

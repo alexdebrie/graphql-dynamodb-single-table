@@ -1,0 +1,9 @@
+#if ( $ctx.error )
+  #if ( $ctx.error.type.equals("DynamoDB:ConditionalCheckFailedException") )
+    $util.error("Site with this domain already exists. Please try another.", "SiteAlreadyExistsError")
+  #else
+    $util.error($ctx.error.message, $ctx.error.type)
+  #end
+#end
+
+$util.toJson($ctx.result)

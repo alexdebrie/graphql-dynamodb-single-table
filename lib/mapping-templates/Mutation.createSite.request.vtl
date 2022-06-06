@@ -1,0 +1,17 @@
+{
+    "version" : "2018-05-29",
+    "operation" : "PutItem",
+    "key" : {
+        "PK": $util.dynamodb.toDynamoDBJson("SITE#$ctx.args.input.domain"),
+        "SK": $util.dynamodb.toDynamoDBJson("SITE#$ctx.args.input.domain")
+    },
+    "attributeValues" : {
+        "_TYPE": $util.dynamodb.toDynamoDBJson("SITE"),
+    	"id": $util.dynamodb.toDynamoDBJson($util.autoId()),
+        "domain": $util.dynamodb.toDynamoDBJson($ctx.args.input.domain),
+        "name": $util.dynamodb.toDynamoDBJson($ctx.args.input.name),
+    },
+    "condition": {
+        "expression": "attribute_not_exists(PK)"
+    }
+}

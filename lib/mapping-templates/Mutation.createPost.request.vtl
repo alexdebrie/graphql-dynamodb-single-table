@@ -1,0 +1,20 @@
+#set($id = $util.autoUlid())
+
+{
+    "version" : "2018-05-29",
+    "operation" : "PutItem",
+    "key" : {
+        "PK": $util.dynamodb.toDynamoDBJson("SITE#${ctx.args.input.domain}"),
+        "SK": $util.dynamodb.toDynamoDBJson("POST#${id}")
+    },
+    "attributeValues" : {
+        "_TYPE": $util.dynamodb.toDynamoDBJson("POST"),
+    	"id": $util.dynamodb.toDynamoDBJson($id),
+        "title": $util.dynamodb.toDynamoDBJson($ctx.args.input.title),
+        "content": $util.dynamodb.toDynamoDBJson($ctx.args.input.content),
+        "publishDate": $util.dynamodb.toDynamoDBJson($util.defaultIfNullOrEmpty($ctx.args.input.publishDate, $util.time.nowISO8601()))
+    },
+    "condition": {
+        "expression": "attribute_not_exists(PK)",
+    }
+}

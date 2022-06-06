@@ -1,0 +1,66 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getSite(domain: String!): Site
+  getPostsForSite(domain: String!, num: Int, after: String): PostConnection
+}
+
+type Mutation {
+  createSite(input: CreateSiteInput): Site
+  createPost(input: CreatePostInput): Post
+  createComment(input: CreateCommentInput): Comment
+}
+
+type Site {
+  id: ID!
+  name: String!
+  domain: String!
+  posts: PostConnection!
+}
+
+type PostConnection {
+  cursor: String
+  posts: [Post]
+}
+
+type Post {
+  id: ID!
+  title: String!
+  publishDate: AWSDateTime!
+  content: String!
+  comments(num: Int, after: String): CommentConnection!
+}
+
+type CommentConnection {
+  cursor: String
+  comments: [Comment]
+}
+
+type Comment {
+  id: ID!
+  username: String!
+  content: String!
+  publishDate: AWSDateTime!
+}
+
+input CreateSiteInput {
+  name: String
+  domain: String!
+}
+
+input CreatePostInput {
+  domain: String!
+  title: String!
+  publishDate: AWSDateTime
+  content: String!
+}
+
+input CreateCommentInput {
+  postId: String!
+  username: String!
+  publishDate: AWSDateTime
+  content: String!
+}
