@@ -1,6 +1,6 @@
 ## GraphQL + DynamoDB -- Single-table example
 
-This repository includes an example of building a GraphQL API with DynamoDB using a single DynamoDB table. It is intended to pair with [this guide on using DynamoDB in a GraphQL API](TODO).
+This repository includes an example of building a GraphQL API with DynamoDB using a single DynamoDB table. It is intended to pair with [this guide on using DynamoDB in a GraphQL API](https://aws.amazon.com/graphql/graphql-dynamodb-data-modeling/).
 
 ### Table of Contents
 
